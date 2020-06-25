@@ -17,7 +17,7 @@ class SendMailClass():
 
 
     def send_email_for_verification(self,send_email_to, email_verification_token):
-        print(" in send email"+email_verification_token)
+        print(" in send email "+email_verification_token)
         print("send to email"+send_email_to)
         from_email=settings.EMAIL_HOST_USER
         subject="Hello Welcome to Email Verification"
