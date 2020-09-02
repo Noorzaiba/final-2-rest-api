@@ -3,7 +3,7 @@ from crime_manage.models import InvestigatorProfile
 from password_reset.serializers import PasswordRestSerializer,PasswordOTPVerificationSerializer,PasswordUpdateSerializer
 from rest_framework.views import APIView
 from rest_framework import status
-from rest_framework.response import Response
+from rest_framework.response import  Response    
 
 
 
