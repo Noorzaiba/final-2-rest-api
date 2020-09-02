@@ -78,7 +78,61 @@ class InvestigatorAddressListAPI(APIView):
 
 
 
-class InvestigatorDetailAPI(APIView):
+class InvestigatorDetailByPkAPI(APIView):
+   
+    authentication_classes=(CustomTokenAuthentication,)
+    permission_classes=(IsAuthenticated,)
+    def get_object(self,pk):
+        try:
+            print("here")
+            return InvestigatorProfile.objects.get(pk=pk)
+        except InvestigatorProfile.DoesNotExist:
+            raise Http404
+
+    def get(self,request,pk,format=None):
+        investigator_obj=self.get_object(pk)
+        print("sentered")
+        serializer=InvestigatorDetailSerializer(investigator_obj)
+        print("here1")
+        content={"flag":True,"serialized_investigator_register_data":[serializer.data]}
+        print(content)
+        return Response(content,status=status.HTTP_200_OK)
+
+    def put(self,request,pk,format=None):
+        investigator_obj=self.get_object(pk)
+        print(request.META.get("HTTP_AUTHORIZATION"))
+        serializer=InvestigatorDetailSerializer(investigator_obj,data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            content={"flag":True,'serialized_investigator_register_data':[serializer.data]}
+            print(content)
+            return Response(content,status=status.HTTP_200_OK)
+        errors_in_process=serializer.errors['email']
+        print(errors_in_process)
+        s=errors_in_process[0]
+        print(s)
+        content={"flag":False,"serialized_investigator_register_data":[{'email':s}]}
+        return Response(content,status=status.HTTP_200_OK)
+      
+
+    def delete(self,request,pk,format=None):
+        investigator_obj=self.get_object(pk)
+        image_name=investigator_obj.profile_image
+        investigator_obj.delete()
+        print("here is image name")
+        print(image_name)
+        d=DeleteImage()
+        z=d.delete_image("investigator_profile_pictures",image_name)
+        print(z)
+        content={"flag":True}
+        return Response(content,status=status.HTTP_200_OK)
+
+
+
+
+
+
+class InvestigatorDetailAPI(APIView): 
     lookup_field='email'
     authentication_classes=(CustomTokenAuthentication,)
     permission_classes=(IsAuthenticated,)
@@ -129,6 +183,9 @@ class InvestigatorDetailAPI(APIView):
 
 
 
+
+
+  
 
 
 

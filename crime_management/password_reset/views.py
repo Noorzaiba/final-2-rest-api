@@ -22,6 +22,10 @@ class PasswordResetAPI(APIView):
             if serializer.data['email']=="3":
                 return Response({"message":"Error while generating Verfication Code","flag":False},status=status.HTTP_200_OK)
 
+            if serializer.data['email']=="4":
+                return Response({'message':"Your Email Verification is in Pending State","flag":False},status=status.HTTP_200_OK)
+
+
         return Response({"message":False},status=status.HTTP_200_OK)
 
         

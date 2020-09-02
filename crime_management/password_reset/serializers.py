@@ -20,6 +20,9 @@ class PasswordRestSerializer(serializers.Serializer):
         email=validated_data['email']
         try:
             investigator_obj=InvestigatorProfile.objects.get(email=email)
+            status=investigator_obj.status
+            if status==False:
+                return {"email":"4"}
         except InvestigatorProfile.DoesNotExist:
             return {"email":"1"}
         send_email=views.SendMailClass()

@@ -25,7 +25,7 @@ SECRET_KEY = 'h2my1&l2cu#=$xdhnogquph%qc2h+*&%@w(i=5ewtu!-l6#3^r'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.43.216']
+ALLOWED_HOSTS = ['192.168.1.9']
 TEMPLATE_DIR=os.path.join(BASE_DIR,"templates")
 
 # Application definition

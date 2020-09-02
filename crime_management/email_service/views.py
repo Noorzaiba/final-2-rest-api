@@ -6,7 +6,7 @@ from django.conf import settings
 class SendMailClass():
     def generate_random_string(self):
         unique_id=get_random_string(length=7)
-        print("token:   "+unique_id)
+        print("token:"+unique_id)
         return unique_id
 
     def generate_random_number(self):

@@ -23,6 +23,9 @@ class PasswordRestSerializer(serializers.Serializer):
         email=validated_data['email']
         try:
             public_user_obj=PublicUser.objects.get(email_id=email)
+            status=public_user_obj.status
+            if status==False:
+                return {"email":"4"}
         except PublicUser.DoesNotExist:
             return {"email":"1"}
         send_email=views.SendMailClass()
